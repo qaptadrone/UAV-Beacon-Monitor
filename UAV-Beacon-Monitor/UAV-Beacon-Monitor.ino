@@ -595,21 +595,16 @@ void draw()
     sprintf(buf, "DIR: %ideg", beacons_known[beacon_shown].bearing);
     beacon.drawString(buf, beacon.width() / 2, yPos);
 
-    yPos += beacon.fontHeight() + 10;
-
-    beacon.setFont(&fonts::DejaVu18);
 
     // Home position
-    beacon.setFont(&fonts::DejaVu18);
+    yPos += beacon.fontHeight() + 5;
     beacon.setTextColor( TFT_SKYBLUE,  TFT_BLACK );
-    //beacon.setFont();
-    beacon.drawString( "HOME", xPos, yPos + beacon.fontHeight() / 2, &fonts::DejaVu24 );
+    beacon.drawString("HOME", xPos, yPos + beacon.fontHeight() / 2);
     sprintf(buf, "LAT: %.5f", double(beacons_known[beacon_shown].lat_start) * 0.00001);
-    beacon.drawString(buf, xPos + 80, yPos);
+    beacon.drawString(buf, xPos + 85, yPos);
     yPos += beacon.fontHeight();
     sprintf(buf, "LON: %.5f", double(beacons_known[beacon_shown].lon_start) * 0.00001);
-    beacon.drawString(buf, xPos + 80, yPos);
-    yPos += beacon.fontHeight() + 5;
+    beacon.drawString(buf, xPos + 85, yPos);
 
     // Last seen
     beacon.setTextColor( TFT_SILVER,    TFT_BLACK );
