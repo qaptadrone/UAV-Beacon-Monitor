@@ -569,9 +569,21 @@ void draw()
 
     // Altitude and Height
     beacon.setTextColor( TFT_GREENYELLOW, TFT_BLACK );
-    sprintf(buf, "ALT: %im", beacons_known[beacon_shown].alt);
+    if (beacons_known[beacon_shown].alt == 0) {
+      // Altitude is not valid
+      sprintf(buf, "ALT: N/A");
+    }
+    else {
+      sprintf(buf, "ALT: %im", beacons_known[beacon_shown].alt);
+    }
     beacon.drawString(buf, xPos, yPos);
-    sprintf(buf, "HGT: %im", beacons_known[beacon_shown].height);
+    if (beacons_known[beacon_shown].height == 0) {
+      // Height is not valid
+      sprintf(buf, "HGT: N/A");
+    }
+    else {
+      sprintf(buf, "HGT: %im", beacons_known[beacon_shown].height);
+    }
     beacon.drawString(buf, beacon.width() / 2, yPos);
 
     yPos += beacon.fontHeight() + 5;
