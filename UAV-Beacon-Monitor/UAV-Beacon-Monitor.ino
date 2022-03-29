@@ -342,7 +342,7 @@ static void bootAnimationTask( void* param )
   M5.Lcd.drawString( "Monitor", M5.Lcd.width() / 2, yString);
   yString += M5.Lcd.fontHeight();
   M5.Lcd.setFont(&fonts::Orbitron_Light_24);
-  M5.Lcd.drawString( "v1.0-2022-03-29", M5.Lcd.width() / 2, yString);
+  M5.Lcd.drawString( "v1.1-2022-03-29", M5.Lcd.width() / 2, yString);
 
   M5.Lcd.setSwapBytes(true);
   ypos = voffset - ( abs( cos(vcursor) ) * vamplitude );
