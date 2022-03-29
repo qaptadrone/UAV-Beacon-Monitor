@@ -463,7 +463,7 @@ void wifi_promiscuous(void* buf, wifi_promiscuous_pkt_type_t type)
     // We received a beacon
 
     // Try to parse it
-    drone_beacon_t beacon_tmp;
+    drone_beacon_t beacon_tmp = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     uint8_t ret = unpack_payload(pkt->payload, packetLength, &beacon_tmp);
     if (ret != 0) {
       // Serial.printf("Error with received frame: %u \n",ret);
