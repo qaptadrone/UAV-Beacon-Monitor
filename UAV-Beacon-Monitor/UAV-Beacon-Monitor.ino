@@ -482,7 +482,12 @@ void wifi_promiscuous(void* buf, wifi_promiscuous_pkt_type_t type)
           time(&beacons_known[u].lastreceived_timestamp);
           beacon_tmp.firstreceived_timestamp = beacons_known[u].firstreceived_timestamp; // This is for the log
           beacons_known[u].lastreceived_timestamp = beacon_tmp.lastreceived_timestamp;   // Update last seen timestamp
-          Serial.printf("[Beacon] Already known, first seen at %is\n", beacon_tmp.firstreceived_timestamp);
+          if (beacon_tmp.use_ansi){
+            Serial.printf("[Beacon] %s Already known, first seen at %is\n", beacon_tmp.id_ansi, beacon_tmp.firstreceived_timestamp);
+          }
+          else {
+            Serial.printf("[Beacon] %s Already known, first seen at %is\n", beacon_tmp.id_fr, beacon_tmp.firstreceived_timestamp);
+          }
           break;
         }
       }
@@ -495,8 +500,12 @@ void wifi_promiscuous(void* buf, wifi_promiscuous_pkt_type_t type)
       // In case we do, we should purge the oldest beacon out of the structure and replace it by the new one
       beacons_known[beacons_count - 1] = beacon_tmp;
       Serial.println("[Beacon] New beacon");
-      Serial.printf("[Beacon] ID FR %s\n", beacon_tmp.id_fr);
-      Serial.printf("[Beacon] ID ANSI %s\n", beacon_tmp.id_ansi);
+      if (beacon_tmp.use_ansi) {
+        Serial.printf("[Beacon] ID ANSI %s\n", beacon_tmp.id_ansi);
+      }
+      else {
+        Serial.printf("[Beacon] ID FR %s\n", beacon_tmp.id_fr);
+      }
 
       // Show immediately
       //beacon_shown = beacons_count - 1;
