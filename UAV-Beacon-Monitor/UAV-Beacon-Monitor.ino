@@ -474,20 +474,25 @@ void wifi_promiscuous(void* buf, wifi_promiscuous_pkt_type_t type)
     // Check if we already know this beacon if there is more than one beacon saved
     if (beacons_count > 0) {
       for (uint8_t u = 0; u < beacons_count; u++) {
-        if ((beacon_tmp.use_ansi && memcmp(beacons_known[u].id_ansi, beacon_tmp.id_ansi, 20) == 0) ||
-            (memcmp(beacons_known[u].id_fr, beacon_tmp.id_fr, 30) == 0))  {
-          known = true;
-          //Update last seen timestamp
-          time(&beacons_known[u].lastreceived_timestamp);
-          beacon_tmp.firstreceived_timestamp = beacons_known[u].firstreceived_timestamp; // This is for the log
-          beacons_known[u].lastreceived_timestamp = beacon_tmp.lastreceived_timestamp;   // Update last seen timestamp
-          if (beacon_tmp.use_ansi){
-            Serial.printf("[Beacon] %s Already known, first seen at %is\n", beacon_tmp.id_ansi, beacon_tmp.firstreceived_timestamp);
+        if (beacon_tmp.use_ansi && beacons_known[u].use_ansi) {
+          if (strcmp(beacons_known[u].id_ansi, beacon_tmp.id_ansi) == 0)  {
+            known = true;
+            //Update last seen timestamp
+            time(&beacons_known[u].lastreceived_timestamp);
+            beacon_tmp.firstreceived_timestamp = beacons_known[u].firstreceived_timestamp; // This is for the log
+            Serial.printf("[Beacon] %s first seen at %is\n", beacon_tmp.id_ansi, beacon_tmp.firstreceived_timestamp);
+            break;
           }
-          else {
-            Serial.printf("[Beacon] %s Already known, first seen at %is\n", beacon_tmp.id_fr, beacon_tmp.firstreceived_timestamp);
+        }
+        if (!beacon_tmp.use_ansi && !beacons_known[u].use_ansi) {
+          if (strcmp(beacons_known[u].id_fr, beacon_tmp.id_fr) == 0)  {
+            known = true;
+            //Update last seen timestamp
+            time(&beacons_known[u].lastreceived_timestamp);
+            beacon_tmp.firstreceived_timestamp = beacons_known[u].firstreceived_timestamp; // This is for the log
+            Serial.printf("[Beacon] %s first seen at %is\n", beacon_tmp.id_fr, beacon_tmp.firstreceived_timestamp);
+            break;
           }
-          break;
         }
       }
     }
