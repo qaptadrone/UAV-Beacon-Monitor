@@ -498,17 +498,19 @@ void wifi_promiscuous(void* buf, wifi_promiscuous_pkt_type_t type)
       // FIXME We should make sure we don't go over MAX_BEACONS
       // In case we do, we should purge the oldest beacon out of the structure and replace it by the new one
       beacons_known[beacons_count - 1] = beacon_tmp;
-      Serial.println("[Beacon] New beacon");
+      Serial.print("[Beacon] New beacon");
       if (beacon_tmp.use_ansi) {
-        Serial.printf("[Beacon] ID ANSI %s\n", beacon_tmp.id_ansi);
+        Serial.printf(" ID ANSI %s\n", beacon_tmp.id_ansi);
       }
       else {
-        Serial.printf("[Beacon] ID FR %s\n", beacon_tmp.id_fr);
+        Serial.printf(" ID FR %s\n", beacon_tmp.id_fr);
       }
 
       // Show immediately
       //beacon_shown = beacons_count - 1;
     }
+
+    // Save to SD
     if (useSD) {
       sdBuffer.addBeacon(&beacon_tmp);
     }
