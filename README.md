@@ -95,3 +95,6 @@ card).
 ### Version 1.0 - 2022-03-29
 
 - First public release
+
+
+# Made by [![qaptadrone](qaptadrone.png)](https://www.qaptadrone.fr/)
